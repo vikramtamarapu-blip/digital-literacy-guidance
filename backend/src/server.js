@@ -28,9 +28,9 @@ async function start() {
 
   console.log('MongoDB connected successfully');
 
-  app.listen(port, () => {
-    console.log(`API listening on ${port}`);
-  });
+  app.listen(port, '0.0.0.0', () => {
+  console.log(`API listening on ${port}`);
+});
 }
 
 start().catch((err) => {
