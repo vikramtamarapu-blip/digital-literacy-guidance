@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 dotenv.config();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
@@ -20,16 +21,19 @@ app.get('/api/health', (req, res) => {
 
 async function start() {
   const port = process.env.PORT || 5000;
-  const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/digital_guide';
+  const uri =
+    process.env.MONGO_URI || 'mongodb://localhost:27017/digital_guide';
+
   await mongoose.connect(uri);
-  app.listen(port, () => console.log(`API listening on ${port}`));
+
+  console.log('MongoDB connected successfully');
+
+  app.listen(port, () => {
+    console.log(`API listening on ${port}`);
+  });
 }
 
 start().catch((err) => {
-  console.error('Failed to start server', err);
+  console.error('Server startup error:', err);
   process.exit(1);
 });
-
-module.exports = app;
-
-
